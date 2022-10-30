@@ -5,8 +5,9 @@ from .transforms import RandomResize, SizeAjust, ToTensor
 
 def build_dataset(cfg, image_set):
     data_root = cfg['DATA'][image_set.upper()]['DATA_ROOT']
+    image_mode = cfg['DATA'][image_set.upper()]['IMAGE_MODE']
     transforms = build_transforms(cfg, image_set)
-    return LmdbDataset(data_root, transforms)
+    return LmdbDataset(data_root, image_mode, transforms)
 
 def build_transforms(cfg, image_set):
     tfm_cfgs = cfg['DATA'][image_set.upper()]

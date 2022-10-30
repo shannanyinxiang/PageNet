@@ -14,24 +14,58 @@ pip install -r requirements.txt
 
 ## Dataset
 - ICDAR2013 Competition Dataset: [BaiduNetDisk](https://pan.baidu.com/s/1uM2u1O9cByZtOdXyBUs6lw?pwd=uqxp) or [Google Drive](https://drive.google.com/drive/folders/120phawO79BxCSgzwaBl1vO6iYXexzZeB?usp=share_link)
+- SCUT-HCCDoc: Please apply for this dataset at [SCUT-HCCDoc_Dataset_Release](https://github.com/HCIILAB/SCUT-HCCDoc_Dataset_Release).
 
 Download the datasets and put them into the `datasets` folder following the file structure below.
 ```
 datasets
-└─IC13Comp
+├─IC13Comp
+└─raw
+   └─SCUT-HCCDoc
+      │  hccdoc_test.json
+      │  hccdoc_train.json
+      └─image
+```
+
+Then run the following command to generate the SCUT-HCCDoc dataset in lmdb format.
+```
+python tools/convert_hccdoc_to_lmdb.py \
+  --image_root datasets/raw/SCUT-HCCDoc/image/ \
+  --annotation_file datasets/raw/SCUT-HCCDoc/hccdoc_test.json \
+  --dict_path dicts/scut-hccdoc.txt \
+  --lmdb_root datasets/SCUT-HCCDoc_test
 ```
 
 ## Inference
 
 ### ICDAR2013 Competition Dataset 
 
-1. Download the pretrained weights from [BaiduNetDisk](https://pan.baidu.com/s/1heCOprsoAlIIwHre-R2m1g?pwd=uf5k) or [Google Drive](https://drive.google.com/file/d/1idxOQzWeivuIkpP91E1EM3Iym4ojtRmu/view?usp=share_link) and put it into the `outputs/casia-hwdb/checkpoints` folder.
+1. Download the pretrained weights from [BaiduNetDisk](https://pan.baidu.com/s/1FjgZIn0FiK1FU5NxUxPeig?pwd=b3ym) or [Google Drive](https://drive.google.com/file/d/1YxDbrCm0WNjJ05LK4uN7W4VMEzxf7LNg/view?usp=share_link) and put it into the `outputs/casia-hwdb/checkpoints` folder.
 
 2. Run the following command:
 ```
 python main.py --config configs/casia-hwdb.yaml
 ```
 The results will be saved at `outputs/casia-hwdb/val_log.txt`.
+
+### SCUT-HCCDoc 
+
+1. Download the pretrained weights from [BaiduNetDisk](https://pan.baidu.com/s/1nYcZk9ektLMVIynMORewOg?pwd=dgvh) or [Google Drive](https://drive.google.com/file/d/1ZVuR-qJ9Opj9HC1tuv_5zqvaGkpeic5f/view?usp=share_link) and put it into the `outputs/scut-hccdoc/checkpoints` folder.
+
+2. Run the following command:
+```
+python main.py --config configs/scut-hccdoc.yaml
+```
+The results will be saved at `outputs/scut-hccdoc/val_log.txt`.
+
+### Model Performance
+
+The performance of the provided models on these datasets should be:
+
+| Dataset | $AR^*$ | $CR^*$ |
+| :---    | :---:  | :---:  |
+| ICDAR2013 Competition Dataset | 92.87 | 93.34 |
+| SCUT-HCCDoc | 78.70 | 84.29 |
 
 ## Training
 Currently the training codes are not available. For questions about model training, please contact Prof. Lianwen Jin (eelwjin@scut.edu.cn) and Mr. Dezhi Peng (eedzpeng@mail.scut.edu.cn).

@@ -78,8 +78,7 @@ class PageDecoder(object):
         # import pdb;pdb.set_trace()
         remain_locs = self.filter_out_paths_wo_se(char_paths, is_start, is_end)
         char_paths = char_paths[remain_locs]
-        # line_results = self.split_start_end(char_paths, is_start, is_end)
-        line_results = self.char_paths2line_results(char_paths)
+        line_results = self.split_start_end(char_paths, is_start, is_end)
 
         if return_inter_path:
             inter_paths = self.get_final_paths(paths, line_results, cors, next_indies)
@@ -135,7 +134,10 @@ class PageDecoder(object):
                     prev_flag = 1
                 if cur_is_end:
                     prev_flag = 2
-            line_results.append(char_path[prev_index:cur_index])
+            if prev_index == cur_index:
+                line_results.append([char_path[prev_index]])
+            else:
+                line_results.append(char_path[prev_index:cur_index])
         return line_results
                 
 
