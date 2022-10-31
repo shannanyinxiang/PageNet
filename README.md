@@ -99,6 +99,10 @@ Note: In the spatial matching of the weakly supervised learning, we found it bet
 }
 ```
 
+## License
+
+This repository should be used and distributed under [Creative Attribution-NonCommercial-NoDerivatives 4.0 International (CC BY-NC-ND 4.0) License](https://creativecommons.org/licenses/by-nc-nd/4.0/) for non-commercial research purposes.
+
 ## Copyright
 This repository can only be used for non-commercial research purpose.
 
