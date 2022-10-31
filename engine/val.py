@@ -9,9 +9,11 @@ from utils.decode import det_rec_nms, PageDecoder
 def validate(model, dataloader, converter, cfg):
     model.eval()
 
+    layout = cfg['POST_PROCESS']['LAYOUT'] if 'LAYOUT' in cfg['POST_PROCESS'] else 'generic'
     page_decoder = PageDecoder(
         se_thres=cfg['POST_PROCESS']['SOL_EOL_CONF_THRES'],
-        max_steps=cfg['POST_PROCESS']['READ_ORDER_MAX_STEP']
+        max_steps=cfg['POST_PROCESS']['READ_ORDER_MAX_STEP'],
+        layout=layout
     )
 
     total_De = 0

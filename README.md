@@ -15,11 +15,13 @@ pip install -r requirements.txt
 ## Dataset
 - ICDAR2013 Competition Dataset: [BaiduNetDisk](https://pan.baidu.com/s/1uM2u1O9cByZtOdXyBUs6lw?pwd=uqxp) or [Google Drive](https://drive.google.com/drive/folders/120phawO79BxCSgzwaBl1vO6iYXexzZeB?usp=share_link)
 - SCUT-HCCDoc: Please apply for this dataset at [SCUT-HCCDoc_Dataset_Release](https://github.com/HCIILAB/SCUT-HCCDoc_Dataset_Release).
+- MTHv2: [BaiduNetDisk](https://pan.baidu.com/s/1fDU1zlynG1UpQThf2-2LKA?pwd=9c53) or [Google Drive](https://drive.google.com/drive/folders/1UfU4CA3HE-zq2AjY26_QTfKaTtk2p1jw?usp=share_link)
 
 Download the datasets and put them into the `datasets` folder following the file structure below.
 ```
 datasets
 ├─IC13Comp
+├─MTHv2_test
 └─raw
    └─SCUT-HCCDoc
       │  hccdoc_test.json
@@ -58,6 +60,16 @@ python main.py --config configs/scut-hccdoc.yaml
 ```
 The results will be saved at `outputs/scut-hccdoc/val_log.txt`.
 
+### MTHv2 
+
+1. Download the pretrained weights from [BaiduNetDisk](https://pan.baidu.com/s/1zRNkUCJnltE0XExlWhbyLg?pwd=0gsw) or [Google Drive](https://drive.google.com/file/d/15NVsNq4gXaSEW2S2Am3tcd0dYti10at8/view?usp=share_link) and put it into the `outputs/mthv2/checkpoints` folder.
+
+2. Run the following command:
+```
+python main.py --config configs/mthv2.yaml
+```
+The results will be saved at `outputs/mthv2/val_log.txt`.
+
 ### Model Performance
 
 The performance of the provided models on these datasets should be:
@@ -66,6 +78,7 @@ The performance of the provided models on these datasets should be:
 | :---    | :---:  | :---:  |
 | ICDAR2013 Competition Dataset | 92.87 | 93.34 |
 | SCUT-HCCDoc | 78.70 | 84.29 |
+| MTHv2 | 93.76 | 96.03 | 
 
 ## Training
 Currently the training codes are not available. For questions about model training, please contact Prof. Lianwen Jin (eelwjin@scut.edu.cn) and Mr. Dezhi Peng (eedzpeng@mail.scut.edu.cn).

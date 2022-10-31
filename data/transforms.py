@@ -3,9 +3,10 @@ import random
 import torchvision.transforms as transforms
 
 class RandomResize(object):
-    def __init__(self, widths, max_height):
+    def __init__(self, widths, max_height, force_resize=True):
         self.widths = widths 
         self.max_height = max_height
+        self.force_resize = force_resize
 
     def __call__(self, sample):
         image = sample['image']
@@ -13,6 +14,12 @@ class RandomResize(object):
 
         img_h, img_w = image.shape[:2]
         tgt_w = random.choice(self.widths)
+
+        if (not self.force_resize) \
+           and img_h <= self.max_height \
+           and img_w <= tgt_w:
+            return sample
+
         fx = tgt_w / img_w 
         if img_h * fx <= self.max_height:
             fy = fx 

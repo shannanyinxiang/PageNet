@@ -50,9 +50,10 @@ def py_cpu_nms(dets, thresh):
 
 class PageDecoder(object):
 
-    def __init__(self, se_thres, max_steps):
+    def __init__(self, se_thres, max_steps, layout):
         self.se_thres = se_thres
         self.max_steps = max_steps
+        self.layout = layout
         self.change_coor = np.array([(0, -1), (1, 0), (0, 1), (-1, 0)])
         self.dir_num = 4
     
@@ -184,7 +185,10 @@ class PageDecoder(object):
 
     def _tilt_(self, start_cors, end_cors):
         diffs = end_cors - start_cors
-        return diffs[:, 1] / (diffs[:, 0] + 1e-16)
+        if self.layout == 'vertical':
+            return diffs[:, 0] / (diffs[:, 1] + 1e-16)
+        else:
+            return diffs[:, 1] / (diffs[:, 0] + 1e-16)
 
     def get_all_paths(self, next_indies, max_length=50):
         prev_indies = self.start_node(next_indies)
